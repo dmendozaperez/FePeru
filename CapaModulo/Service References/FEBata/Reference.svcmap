@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="d8c41e2e-4d70-4931-904a-963d2aef5c33" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="8bd7ffb7-cd3a-4337-95cb-d1c9082b5a17" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
   <ClientOptions>
     <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
     <EnableDataBinding>true</EnableDataBinding>
@@ -21,7 +21,7 @@
     <MetadataSource Address="http://200.121.226.193:8080/axis2/services/Online?wsdl" Protocol="http" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="Online.wsdl" MetadataType="Wsdl" ID="88c5473b-0370-4e91-ba67-577d612c1e2f" SourceId="1" SourceUrl="http://200.121.226.193:8080/axis2/services/Online?wsdl" />
+    <MetadataFile FileName="Online.wsdl" MetadataType="Wsdl" ID="68986aa0-3409-45fa-a5e3-c31b9ee8ef5a" SourceId="1" SourceUrl="http://200.121.226.193:8080/axis2/services/Online?wsdl" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
