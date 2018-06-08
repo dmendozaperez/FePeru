@@ -20,15 +20,13 @@ namespace CapaModulo.Bll
         private static string _ruta_in_retencion { get; set; }
 
         //configuracion por defecto de carvajal
-        private static string _ruta_carvajal_xml { set; get; }
-        private static string _ruta_carvajal_mapa { set; get; }
-        private static string _ruta_carvajal_esquemas { set; get; }
-        private static string _ruta_carvajal_certificado { set; get; }
+       
 
         private static string ruc_empresa = ConfigurationManager.AppSettings["empresa"].ToString(); //"20101951872";
         private static string ws_login= ConfigurationManager.AppSettings["ws_login"].ToString(); //"20101951872";
         private static string ws_pass = ConfigurationManager.AppSettings["ws_pass"].ToString(); //"20101951872";
-
+        private static string socket_host = ConfigurationManager.AppSettings["socket_host"].ToString(); //"20101951872";
+        private static Int32 socket_puerto =Convert.ToInt32(ConfigurationManager.AppSettings["socket_puerto"].ToString()); //"20101951872";
 
         private static Boolean metodo_epos = (ConfigurationManager.AppSettings["epos"].ToString() == "1") ? true : false;
         #endregion
@@ -40,10 +38,7 @@ namespace CapaModulo.Bll
             _ruta_in_debito = "D:\\INTERFA\\FEPERU\\IN\\Debitos";
             _ruta_in_retencion = "D:\\INTERFA\\FEPERU\\IN\\Retencion";
 
-            _ruta_carvajal_xml = "D:\\INTERFA\\FEPERU\\XML";
-            _ruta_carvajal_mapa = "D:\\INTERFA\\FEPERU\\bata_proceso\\Mapas";
-            _ruta_carvajal_esquemas = "D:\\INTERFA\\FEPERU\\bata_proceso\\Esquemas";
-            _ruta_carvajal_certificado = "D:\\INTERFA\\FEPERU\\bata_proceso\\Certificado";
+         
 
             string _carpeta_in = "";
            
@@ -74,22 +69,7 @@ namespace CapaModulo.Bll
                 //***************************
                 //configuracion por defecto de app config
 
-                if (!Directory.Exists(@_ruta_carvajal_xml))
-                {
-                    Directory.CreateDirectory(@_ruta_carvajal_xml);
-                }
-                if (!Directory.Exists(@_ruta_carvajal_mapa))
-                {
-                    Directory.CreateDirectory(@_ruta_carvajal_mapa);
-                }
-                if (!Directory.Exists(@_ruta_carvajal_esquemas))
-                {
-                    Directory.CreateDirectory(@_ruta_carvajal_esquemas);
-                }
-                if (!Directory.Exists(@_ruta_carvajal_certificado))
-                {
-                    Directory.CreateDirectory(@_ruta_carvajal_certificado);
-                }
+               
 
                 //ahora recorrer las carpetas in y verificas cuales son los archivo para la generacion de hash
                 //verificar archivo
@@ -195,16 +175,7 @@ namespace CapaModulo.Bll
             }
         }
         public static string _retornar_codigo_hash(ref string _error, ref string _ruta_archivo, ref string ruta_archivo_externo, ref Int32 _ingreso, string _archivo, string _tipo_doc, string _carpeta_in)
-        {
-            //_ruta_in_boleta = "D:\\INTERFA\\FEPERU\\IN\\Boletas";
-            //_ruta_in_factura = "D:\\INTERFA\\FEPERU\\IN\\Facturas";
-            //_ruta_in_credito = "D:\\INTERFA\\FEPERU\\IN\\creditos";
-            //_ruta_in_debito = "D:\\INTERFA\\FEPERU\\IN\\debitos";
-
-            //_ruta_carvajal_xml = "D:\\INTERFA\\FEPERU\\XML";
-            //_ruta_carvajal_mapa = "D:\\INTERFA\\FEPERU\\bata_proceso\\Mapas";
-            //_ruta_carvajal_esquemas = "D:\\INTERFA\\FEPERU\\bata_proceso\\Esquemas";
-            //_ruta_carvajal_certificado = "D:\\INTERFA\\FEPERU\\bata_proceso\\Certificado";
+        {            
 
             string _valida_error = "";
             string _codigo_hash_return = "";
@@ -226,7 +197,7 @@ namespace CapaModulo.Bll
 
                 //_formato_doc = "111";
                 //CERRAR LA INSTNACIA
-                _nombrearchivo_txt = System.IO.Path.GetFileNameWithoutExtension(@_archivo);
+                _nombrearchivo_txt = Path.GetFileNameWithoutExtension(@_archivo);
 
                 //instanciar la dll externa
                 string _codigo_hash = "";
@@ -281,10 +252,11 @@ namespace CapaModulo.Bll
 
                 #region<METODO E-POS>
                 if (metodo_epos)
-                {                    
-                    string ipsocket = "10.10.10.66"; Int32 puerto = 5500;
+                {
+                    //string ipsocket = host_socket; Int32 puerto = 5500;
+                    //socket_host = "10.10.10.161";
                     clientSocket = new TcpClient();
-                    clientSocket.Connect(ipsocket, puerto);
+                    clientSocket.Connect(socket_host,socket_puerto);
 
                     /*formatear formato de documento*/
                     _formato_doc = formato_e_pos(_formato_doc, _tipo_doc);
