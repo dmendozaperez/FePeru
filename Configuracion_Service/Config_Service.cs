@@ -121,6 +121,7 @@ namespace Configuracion_Service
                     rdb_wsdl.Checked = true;
                     rdb_ec.Checked = true;
                     rdb_tropi.Enabled = true;
+                    rdb_ec.Enabled = true;
                 }
             }
             catch 
@@ -138,6 +139,19 @@ namespace Configuracion_Service
             update_config(empresa, met_fac, localhost);
             activando_servicio_win();
         }
+        private void config_epos()
+        {
+            try
+            {
+                string empresa = (rdb_ec.Checked) ? "20101951872" : "20408990816";
+                string met_fac = (rdb_epos.Checked) ? "1" : "0";
+                string localhost = "localhost";
+                update_config(empresa, met_fac, localhost);
+            }
+            catch (Exception)
+            {                
+            }
+        }
         private void activando_epos(ref Boolean error_activando)
         {
             try
@@ -149,6 +163,7 @@ namespace Configuracion_Service
                 autenticando_epos(ref error_activando,ref contar_error_epos);
                 if (contar_error_epos==1)
                 {
+                    _espera_ejecuta(5);
                     autenticando_epos(ref error_activando, ref contar_error_epos);
                 }
             }
@@ -210,9 +225,13 @@ namespace Configuracion_Service
             catch (Exception exc)
             {
                 contar_error_epos += 1;
-                error_activando = true;
+               
                 if (contar_error_epos==2)
+                {
+                    error_activando = true;
                     MessageBox.Show(exc.Message, "Aviso del sistema (Bata- Peru)", MessageBoxButtons.OK, MessageBoxIcon.Error); ;
+                }
+                    
             }
         }
         private void btnejecutar_Click(object sender, EventArgs e)
@@ -229,6 +248,7 @@ namespace Configuracion_Service
                 {
                     Boolean valida_activacion = false;
                     desactivando_servicio_win();
+                    config_epos();
                     activando_epos(ref valida_activacion);
                     if (valida_activacion)
                     {
