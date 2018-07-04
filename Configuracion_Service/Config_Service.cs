@@ -37,7 +37,7 @@ namespace Configuracion_Service
         {
             lblcodtda.Text = "";
         }
-        private void verifica_install_epos()
+        public void verifica_install_epos()
         {
             Empresas_Lista emp = null;
             try
@@ -469,6 +469,19 @@ namespace Configuracion_Service
             verifica_install_epos();
             MessageBox.Show("Configuraciones Actualizadas", "Aviso del sistema (Bata- Peru)", MessageBoxButtons.OK, MessageBoxIcon.Information);
             Cursor.Current = Cursors.Default;
+        }
+
+        private void btndescargar_Click(object sender, EventArgs e)
+        {
+            DialogResult resulado = MessageBox.Show("Desea Descargar el Archivo E-POS",
+                            "Aviso del sistema (Bata- Peru)", MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
+            if (resulado == DialogResult.OK)
+            { 
+                DescargarEpos des = new DescargarEpos();
+                des.ShowDialog();
+                verifica_install_epos();
+            }
+
         }
     }
 }

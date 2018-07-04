@@ -29,6 +29,10 @@
 	</ItemGroup>
 	<Import Project="$(MSBuildExtensionsPath32)\InstallShield\2015Limited\InstallShield.targets"/>
 	<ItemGroup>
+		<ProjectReference Include="..\Configuracion_Service\Configuracion_Service.csproj">
+			<Name>Configuracion_Service</Name>
+			<Project>{9BDACC69-F880-4F4C-B1F7-8125269AF945}</Project>
+		</ProjectReference>
 		<ProjectReference Include="..\ServiceWin_FE\ServiceWin_FE.csproj">
 			<Name>ServiceWin_FE</Name>
 			<Project>{2C54D3B6-35D7-46F9-886F-9CB7A7700238}</Project>

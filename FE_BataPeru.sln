@@ -12,6 +12,18 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServiceWin_FE", "ServiceWin_FE\ServiceWin_FE.csproj", "{2C54D3B6-35D7-46F9-886F-9CB7A7700238}"
 EndProject
 Project("{6141683F-8A12-4E36-9623-2EB02B2C2303}") = "Instalador_FE", "Instalador_FE\Instalador_FE.isproj", "{15D95693-4A9F-4265-A5A9-DEA813362D2A}"
+	ProjectSection(ProjectDependencies) = postProject
+		{9BDACC69-F880-4F4C-B1F7-8125269AF945} = {9BDACC69-F880-4F4C-B1F7-8125269AF945}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ws_Bata_Electronico", "Ws_Bata_Electronico\Ws_Bata_Electronico.csproj", "{D7CF8F22-C5F9-4031-9F6E-04DCF3EED826}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppBata_WS_Electronico", "AppBata_WS_Electronico\AppBata_WS_Electronico.csproj", "{CDE9C88B-B197-4E9E-816B-3F4331EED005}"
+	ProjectSection(ProjectDependencies) = postProject
+		{D7CF8F22-C5F9-4031-9F6E-04DCF3EED826} = {D7CF8F22-C5F9-4031-9F6E-04DCF3EED826}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ICSharpCode.SharpZLib", "ICSharpCode.SharpZLib\ICSharpCode.SharpZLib.csproj", "{834AB8BF-F67F-4157-805C-1D4ADBBD7BDA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -72,6 +84,36 @@ Global
 		{15D95693-4A9F-4265-A5A9-DEA813362D2A}.Release|Any CPU.Build.0 = SingleImage
 		{15D95693-4A9F-4265-A5A9-DEA813362D2A}.SingleImage|Any CPU.ActiveCfg = SingleImage
 		{15D95693-4A9F-4265-A5A9-DEA813362D2A}.SingleImage|Any CPU.Build.0 = SingleImage
+		{D7CF8F22-C5F9-4031-9F6E-04DCF3EED826}.CD_ROM|Any CPU.ActiveCfg = Release|Any CPU
+		{D7CF8F22-C5F9-4031-9F6E-04DCF3EED826}.CD_ROM|Any CPU.Build.0 = Release|Any CPU
+		{D7CF8F22-C5F9-4031-9F6E-04DCF3EED826}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D7CF8F22-C5F9-4031-9F6E-04DCF3EED826}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D7CF8F22-C5F9-4031-9F6E-04DCF3EED826}.DVD-5|Any CPU.ActiveCfg = Debug|Any CPU
+		{D7CF8F22-C5F9-4031-9F6E-04DCF3EED826}.DVD-5|Any CPU.Build.0 = Debug|Any CPU
+		{D7CF8F22-C5F9-4031-9F6E-04DCF3EED826}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D7CF8F22-C5F9-4031-9F6E-04DCF3EED826}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D7CF8F22-C5F9-4031-9F6E-04DCF3EED826}.SingleImage|Any CPU.ActiveCfg = Release|Any CPU
+		{D7CF8F22-C5F9-4031-9F6E-04DCF3EED826}.SingleImage|Any CPU.Build.0 = Release|Any CPU
+		{CDE9C88B-B197-4E9E-816B-3F4331EED005}.CD_ROM|Any CPU.ActiveCfg = Release|Any CPU
+		{CDE9C88B-B197-4E9E-816B-3F4331EED005}.CD_ROM|Any CPU.Build.0 = Release|Any CPU
+		{CDE9C88B-B197-4E9E-816B-3F4331EED005}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CDE9C88B-B197-4E9E-816B-3F4331EED005}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CDE9C88B-B197-4E9E-816B-3F4331EED005}.DVD-5|Any CPU.ActiveCfg = Debug|Any CPU
+		{CDE9C88B-B197-4E9E-816B-3F4331EED005}.DVD-5|Any CPU.Build.0 = Debug|Any CPU
+		{CDE9C88B-B197-4E9E-816B-3F4331EED005}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CDE9C88B-B197-4E9E-816B-3F4331EED005}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CDE9C88B-B197-4E9E-816B-3F4331EED005}.SingleImage|Any CPU.ActiveCfg = Release|Any CPU
+		{CDE9C88B-B197-4E9E-816B-3F4331EED005}.SingleImage|Any CPU.Build.0 = Release|Any CPU
+		{834AB8BF-F67F-4157-805C-1D4ADBBD7BDA}.CD_ROM|Any CPU.ActiveCfg = Release|Any CPU
+		{834AB8BF-F67F-4157-805C-1D4ADBBD7BDA}.CD_ROM|Any CPU.Build.0 = Release|Any CPU
+		{834AB8BF-F67F-4157-805C-1D4ADBBD7BDA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{834AB8BF-F67F-4157-805C-1D4ADBBD7BDA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{834AB8BF-F67F-4157-805C-1D4ADBBD7BDA}.DVD-5|Any CPU.ActiveCfg = Debug|Any CPU
+		{834AB8BF-F67F-4157-805C-1D4ADBBD7BDA}.DVD-5|Any CPU.Build.0 = Debug|Any CPU
+		{834AB8BF-F67F-4157-805C-1D4ADBBD7BDA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{834AB8BF-F67F-4157-805C-1D4ADBBD7BDA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{834AB8BF-F67F-4157-805C-1D4ADBBD7BDA}.SingleImage|Any CPU.ActiveCfg = Release|Any CPU
+		{834AB8BF-F67F-4157-805C-1D4ADBBD7BDA}.SingleImage|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

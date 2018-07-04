@@ -15,6 +15,7 @@ namespace Configuracion_Service
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+            //Application.Run(new DescargarEpos());
             Application.Run(new Config_Service());
         }
     }

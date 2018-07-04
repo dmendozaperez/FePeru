@@ -341,7 +341,7 @@
 		<col def="S0">ISDotNetInstallerArgsCommit</col>
 		<col def="S0">ISDotNetInstallerArgsUninstall</col>
 		<col def="S0">ISDotNetInstallerArgsRollback</col>
-		<row><td>Configuracion_Service.exe</td><td>{6EBBE838-BBF5-4450-B153-21444FF4A62C}</td><td>SERVICE.NET</td><td>2</td><td/><td>configuracion_service.exe</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
+		<row><td>Configuracion_Service.Resultado_principal</td><td>{8873BA17-F10D-4291-A81E-285DA6B08F92}</td><td>SERVICE.NET</td><td>2</td><td/><td>configuracion_service.result</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 		<row><td>ISX_DEFAULTCOMPONENT</td><td>{516937FB-4342-4586-AB06-DDAAA475B0F4}</td><td>SERVICE.NET</td><td>2</td><td/><td/><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 		<row><td>ServiceWin_FE.Resultado_principal</td><td>{39F8AB92-4DC5-4A27-9571-6FA1ECF33D59}</td><td>INSTALLDIR</td><td>2</td><td/><td>servicewin_fe.resultado_prin</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 	</table>
@@ -1053,10 +1053,10 @@
 	<table name="CreateFolder">
 		<col key="yes" def="s72">Directory_</col>
 		<col key="yes" def="s72">Component_</col>
-		<row><td>INSTALLDIR</td><td>Configuracion_Service.exe</td></row>
+		<row><td>INSTALLDIR</td><td>Configuracion_Service.Resultado_principal</td></row>
 		<row><td>INSTALLDIR</td><td>ISX_DEFAULTCOMPONENT</td></row>
 		<row><td>INSTALLDIR</td><td>ServiceWin_FE.Resultado_principal</td></row>
-		<row><td>SERVICE.NET</td><td>Configuracion_Service.exe</td></row>
+		<row><td>SERVICE.NET</td><td>Configuracion_Service.Resultado_principal</td></row>
 		<row><td>SERVICE.NET</td><td>ISX_DEFAULTCOMPONENT</td></row>
 	</table>
 
@@ -1884,7 +1884,7 @@
 	<table name="FeatureComponents">
 		<col key="yes" def="s38">Feature_</col>
 		<col key="yes" def="s72">Component_</col>
-		<row><td>AlwaysInstall</td><td>Configuracion_Service.exe</td></row>
+		<row><td>AlwaysInstall</td><td>Configuracion_Service.Resultado_principal</td></row>
 		<row><td>AlwaysInstall</td><td>ISX_DEFAULTCOMPONENT</td></row>
 		<row><td>AlwaysInstall</td><td>ServiceWin_FE.Resultado_principal</td></row>
 	</table>
@@ -1901,7 +1901,7 @@
 		<col def="S255">ISBuildSourcePath</col>
 		<col def="I4">ISAttributes</col>
 		<col def="S72">ISComponentSubFolder_</col>
-		<row><td>configuracion_service.exe</td><td>Configuracion_Service.exe</td><td>CONFIG~1.EXE|Configuracion_Service.exe</td><td>0</td><td/><td/><td/><td>1</td><td>D:\Fuentes\FE_PAPERLESS\FE_BataPeru\Configuracion_Service\bin\Debug\Configuracion_Service.exe</td><td>1</td><td/></row>
+		<row><td>configuracion_service.result</td><td>Configuracion_Service.Resultado_principal</td><td>Configuracion_Service.Resultado principal</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;Configuracion_Service&gt;|Built</td><td>3</td><td/></row>
 		<row><td>servicewin_fe.resultado_prin</td><td>ServiceWin_FE.Resultado_principal</td><td>ServiceWin_FE.Resultado principal</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;ServiceWin_FE&gt;|Built</td><td>3</td><td/></row>
 	</table>
 
@@ -2044,7 +2044,7 @@
 		<col def="S0">FTPLocation</col>
 		<col def="S0">HTTPLocation</col>
 		<col def="S0">Miscellaneous</col>
-		<row><td>Configuracion_Service.exe</td><td/><td/><td>_6D2618AD_D939_4618_98CC_7A8A87E39F47_FILTER</td><td/><td/><td/><td/></row>
+		<row><td>Configuracion_Service.Resultado_principal</td><td/><td/><td>_2337AD43_2407_4851_B8EA_BB702B8CD375_FILTER</td><td/><td/><td/><td/></row>
 		<row><td>ISX_DEFAULTCOMPONENT</td><td/><td/><td>_F14116C1_150B_4187_A232_80CA1BCECDC1_FILTER</td><td/><td/><td/><td/></row>
 		<row><td>ServiceWin_FE.Resultado_principal</td><td/><td/><td>_B7D70F34_1236_4AC8_BE7D_2BA1399D0D71_FILTER</td><td/><td/><td/><td/></row>
 	</table>
@@ -2327,6 +2327,7 @@
 		<col def="i4">Type</col>
 		<row><td>CommonFilesFolder</td><td/><td/><td>1</td></row>
 		<row><td>Configuracion_Service</td><td>Configuracion_Service\Configuracion_Service.csproj</td><td/><td>2</td></row>
+		<row><td>ICSharpCode.SharpZLib</td><td>ICSharpCode.SharpZLib\ICSharpCode.SharpZLib.csproj</td><td/><td>2</td></row>
 		<row><td>ISPROJECTDIR</td><td/><td/><td>1</td></row>
 		<row><td>ISProductFolder</td><td/><td/><td>1</td></row>
 		<row><td>ISProjectDataFolder</td><td/><td/><td>1</td></row>
@@ -4347,8 +4348,8 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<row><td>IS_SQLSERVER_USERNAME</td><td>sa</td><td/></row>
 		<row><td>InstallChoice</td><td>AR</td><td/></row>
 		<row><td>LAUNCHPROGRAM</td><td>1</td><td/></row>
-		<row><td>LAUNCHPROGRAMCOMPCODE</td><td>{6EBBE838-BBF5-4450-B153-21444FF4A62C}</td><td/></row>
-		<row><td>LAUNCHPROGRAMFILEKEY</td><td>configuracion_service.exe</td><td/></row>
+		<row><td>LAUNCHPROGRAMCOMPCODE</td><td>{8873BA17-F10D-4291-A81E-285DA6B08F92}</td><td/></row>
+		<row><td>LAUNCHPROGRAMFILEKEY</td><td>configuracion_service.result</td><td/></row>
 		<row><td>LAUNCHREADME</td><td>1</td><td/></row>
 		<row><td>Manufacturer</td><td>##COMPANY_NAME##</td><td/></row>
 		<row><td>PIDKEY</td><td/><td/></row>
@@ -4376,7 +4377,7 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<row><td>PROGMSG_IIS_ROLLBACKAPPPOOLS</td><td>##IDS_PROGMSG_IIS_ROLLBACKAPPPOOLS##</td><td/></row>
 		<row><td>PROGMSG_IIS_ROLLBACKVROOTS</td><td>##IDS_PROGMSG_IIS_ROLLBACKVROOTS##</td><td/></row>
 		<row><td>PROGMSG_IIS_ROLLBACKWEBSERVICEEXTENSIONS</td><td>##IDS_PROGMSG_IIS_ROLLBACKWEBSERVICEEXTENSIONS##</td><td/></row>
-		<row><td>PROGRAMFILETOLAUNCHATEND</td><td>[INSTALLDIR]Service.Net\Configuracion_Service.exe</td><td/></row>
+		<row><td>PROGRAMFILETOLAUNCHATEND</td><td>[INSTALLDIR]Service.Net\Configuracion_Service.Resultado principal</td><td/></row>
 		<row><td>ProductCode</td><td>{6FD308DE-F396-433D-85A9-6C15A6E64DF5}</td><td/></row>
 		<row><td>ProductName</td><td>Service FE (Bata)</td><td/></row>
 		<row><td>ProductVersion</td><td>1.0</td><td/></row>
@@ -4456,9 +4457,6 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<col def="L255">FileName</col>
 		<col def="s72">DirProperty</col>
 		<col def="i2">InstallMode</col>
-		<row><td>Configuracion_Service.exe</td><td>Configuracion_Service.exe</td><td/><td>servic_1_service_fe__bata_</td><td>2</td></row>
-		<row><td>FileKey1</td><td>Configuracion_Service.exe</td><td/><td>nombre_1_nombre_de_su_organizaci_n</td><td>2</td></row>
-		<row><td>FileKey2</td><td>Configuracion_Service.exe</td><td/><td>servic_1_service_fe__bata_</td><td>2</td></row>
 	</table>
 
 	<table name="RemoveIniFile">
@@ -4546,7 +4544,6 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<col def="S255">ISComments</col>
 		<col def="S255">ISShortcutName</col>
 		<col def="I4">ISAttributes</col>
-		<row><td>Configuracion_Service.exe</td><td>servic_1_service_fe__bata_</td><td>##IDS_SHORTCUT_DISPLAY_NAME1##</td><td>Configuracion_Service.exe</td><td>AlwaysInstall</td><td/><td/><td/><td>Configuracion_Serv_67142FDA55414758929FAA55F61849B2.exe</td><td>0</td><td>1</td><td>SERVICE.NET</td><td/><td/><td/><td/><td/><td/><td/></row>
 	</table>
 
 	<table name="Signature">

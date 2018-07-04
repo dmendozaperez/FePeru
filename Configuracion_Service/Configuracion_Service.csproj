@@ -24,7 +24,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
+    <PlatformTarget>x86</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -39,6 +39,7 @@
     <Reference Include="System" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.ServiceProcess" />
     <Reference Include="System.Xml.Linq" />
@@ -57,11 +58,25 @@
     <Compile Include="Config_Service.Designer.cs">
       <DependentUpon>Config_Service.cs</DependentUpon>
     </Compile>
+    <Compile Include="DescargarEpos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DescargarEpos.Designer.cs">
+      <DependentUpon>DescargarEpos.cs</DependentUpon>
+    </Compile>
     <Compile Include="Empresas_FE.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Service References\Bata_Util\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="Config_Service.resx">
       <DependentUpon>Config_Service.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DescargarEpos.resx">
+      <DependentUpon>DescargarEpos.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -83,13 +98,41 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <None Include="Service References\Bata_Util\Bata_Electronico.wsdl" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="favicon.ico" />
+    <None Include="Service References\Bata_Util\Configuracion_Service.Bata_Util.Ba_Files.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\Bata_Util\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Service References\Bata_Util\configuration.svcinfo" />
+    <None Include="Service References\Bata_Util\configuration91.svcinfo" />
+    <None Include="Service References\Bata_Util\Bata_Electronico.disco" />
+    <None Include="Resources\Warning.png" />
+    <None Include="Resources\Information.png" />
     <None Include="Resources\bt_refresh.png" />
+    <None Include="Resources\bt_package.png" />
+    <None Include="Resources\Animation.gif" />
     <Content Include="Resources\b_active.png" />
+    <None Include="Resources\Error.png" />
     <Content Include="Resources\favicon.ico" />
     <None Include="Resources\b_active1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadataStorage Include="Service References\Bata_Util\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ICSharpCode.SharpZLib\ICSharpCode.SharpZLib.csproj">
+      <Project>{834ab8bf-f67f-4157-805c-1d4adbbd7bda}</Project>
+      <Name>ICSharpCode.SharpZLib</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
