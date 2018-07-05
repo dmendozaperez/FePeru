@@ -163,7 +163,7 @@ namespace Configuracion_Service
                 autenticando_epos(ref error_activando,ref contar_error_epos);
                 if (contar_error_epos==1)
                 {
-                    _espera_ejecuta(5);
+                    _espera_ejecuta(10);
                     autenticando_epos(ref error_activando, ref contar_error_epos);
                 }
             }
@@ -479,7 +479,9 @@ namespace Configuracion_Service
             { 
                 DescargarEpos des = new DescargarEpos();
                 des.ShowDialog();
+                Cursor.Current = Cursors.WaitCursor;
                 verifica_install_epos();
+                Cursor.Current = Cursors.Default;
             }
 
         }
