@@ -18,10 +18,10 @@
     <ServiceContractMappings />
   </ClientOptions>
   <MetadataSources>
-    <MetadataSource Address="http://200.121.226.193:8080/axis2/services/Online?wsdl" Protocol="http" SourceId="1" />
+    <MetadataSource Address="http://200.121.128.110:8080/axis2/services/Online?wsdl" Protocol="http" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="Online.wsdl" MetadataType="Wsdl" ID="88c5473b-0370-4e91-ba67-577d612c1e2f" SourceId="1" SourceUrl="http://200.121.226.193:8080/axis2/services/Online?wsdl" />
+    <MetadataFile FileName="Online1.wsdl" MetadataType="Wsdl" ID="14905b48-d3c6-4b9f-bb18-078691ae21a6" SourceId="1" SourceUrl="http://200.121.128.110:8080/axis2/services/Online?wsdl" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />

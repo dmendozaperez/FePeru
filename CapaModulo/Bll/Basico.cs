@@ -253,13 +253,14 @@ namespace CapaModulo.Bll
                 #region<METODO E-POS>
                 if (metodo_epos)
                 {
+                    string idtipo_doc = "";
                     //string ipsocket = host_socket; Int32 puerto = 5500;
                     //socket_host = "10.10.10.161";
                     clientSocket = new TcpClient();
                     clientSocket.Connect(socket_host,socket_puerto);
 
                     /*formatear formato de documento*/
-                    _formato_doc = formato_e_pos(_formato_doc, _tipo_doc);
+                    _formato_doc = formato_e_pos(_formato_doc, _tipo_doc,ref idtipo_doc);
                     /**/
 
                     byte[] outstream = Encoding.ASCII.GetBytes(_formato_doc);
@@ -291,7 +292,34 @@ namespace CapaModulo.Bll
                         estado_gen.codigo = split[0].ToString().Trim().Replace('\u0002', ' ').TrimEnd().TrimStart().Trim();
                         estado_gen.descripcion = split[4].ToString().Trim().Replace('\0', ' ').TrimEnd().TrimStart().Trim();
                         estado_gen.descripcion = estado_gen.descripcion.Replace(',', ' ');
-                        estado_gen.descripcion = estado_gen.descripcion.Replace('\u0003', ' ').TrimEnd().TrimStart().Trim(); 
+                        estado_gen.descripcion = estado_gen.descripcion.Replace('\u0003', ' ').TrimEnd().TrimStart().Trim();
+                        string num_doc = split[2].ToString();
+
+                        #region<ENVIO DE CONFIRMACION>
+
+                        string str_confirmacion = "@**@3\t0\t" + ruc_empresa + "\t1\t" +  idtipo_doc + "\t" + num_doc +  "*@@*";
+
+                        outstream = Encoding.ASCII.GetBytes(str_confirmacion);
+
+                        //NetworkStream serverstream1 = clientSocket.GetStream();
+                        serverstream.Write(outstream, 0, outstream.Length);
+                        serverstream.Flush();
+
+                        instream = new byte[1024 * 1000];
+                        serverstream.Read(instream, 0, (int)clientSocket.ReceiveBufferSize);
+                        string return_confirmacion = Encoding.ASCII.GetString(instream);
+
+                        string[] confirmacion= return_confirmacion.Trim().Split('\t');
+                        estado_gen.codigo = confirmacion[0].ToString().Trim().Replace('\u0002', ' ').TrimEnd().TrimStart().Trim();
+
+                        if (estado_gen.codigo!="0")
+                        {
+                            estado_gen.descripcion = confirmacion[1].ToString().Trim().Replace('\0', ' ').TrimEnd().TrimStart().Trim();
+                            estado_gen.descripcion = estado_gen.descripcion.Replace(',', ' ');
+                            estado_gen.descripcion = estado_gen.descripcion.Replace('\u0003', ' ').TrimEnd().TrimStart().Trim();
+                        }
+
+                        #endregion
                     }
 
                     /*si el retorno es cero entonces retorno ok*/
@@ -344,7 +372,7 @@ namespace CapaModulo.Bll
             return _codigo_hash_return;
         }
         
-        private static string formato_e_pos(string _str,string tdoc)
+        private static string formato_e_pos(string _str,string tdoc,ref string id_tipodoc)
         {
             string str_new_format = "";
             try
@@ -370,7 +398,7 @@ namespace CapaModulo.Bll
                         break;
 
                 }
-
+                id_tipodoc = tipo_doc;
                 string str_primer_line = "@**@2\t0\t" + ruc_empresa +"\t1\t" + tipo_doc + "\t\n";
                 string str_fin_line ="*@@*";
 

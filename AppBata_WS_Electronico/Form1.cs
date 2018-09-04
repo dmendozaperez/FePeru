@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -142,6 +143,9 @@ namespace AppBata_WS_Electronico
             Bata_Util.Bata_ElectronicoSoapClient bata_dow = new Bata_Util.Bata_ElectronicoSoapClient();
 
             var files = bata_dow.ws_descargar_epos(header_user);
+
+             string file_epos_default = @"C:\Paperless.zip";
+             File.WriteAllBytes(file_epos_default, files.files);
         }
     }
 }
