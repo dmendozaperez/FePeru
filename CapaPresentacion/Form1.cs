@@ -22,6 +22,9 @@ namespace CapaPresentacion
         const string SERVER_IP = "10.10.10.66";
         private void button1_Click(object sender, EventArgs e)
         {
+
+
+
             //System.Net.Sockets.TcpClient clientSocket = new System.Net.Sockets.TcpClient();
             //TcpClient socketForServer;
             //try
@@ -91,7 +94,8 @@ namespace CapaPresentacion
             //networkStream.Close();
 
             string error = "";
-            CapaModulo.Bll.Basico._ejecuta_proceso(ref error);
+            CapaModulo.Bll.Basico.ejecuta_impresion_qr(ref error);
+            //CapaModulo.Bll.Basico._ejecuta_proceso(ref error);
             //FeBata.
         }
     }

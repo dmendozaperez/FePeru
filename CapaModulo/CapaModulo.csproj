@@ -32,9 +32,14 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Carvajal.FEPE.PreSC, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Generacion Hash\Generacion_Hash\Generacion_Hash_RE\bin\Debug\Carvajal.FEPE.PreSC.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.Xml.Linq" />
@@ -46,6 +51,7 @@
   <ItemGroup>
     <Compile Include="Bll\Basico.cs" />
     <Compile Include="Bll\EstadoGenera.cs" />
+    <Compile Include="Bll\Ticket.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Service References\FEBata\Reference.cs">
       <AutoGen>True</AutoGen>

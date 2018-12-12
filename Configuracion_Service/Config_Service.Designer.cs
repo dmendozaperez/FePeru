@@ -42,6 +42,9 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.rdb_sqr = new System.Windows.Forms.RadioButton();
+            this.rdb_feqr = new System.Windows.Forms.RadioButton();
+            this.label6 = new System.Windows.Forms.Label();
             this.btndescargar = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
             this.btnejecutar = new System.Windows.Forms.Button();
@@ -51,7 +54,6 @@
             this.btn_uninstall = new System.Windows.Forms.Button();
             this.btn_install = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -217,6 +219,8 @@
             // 
             this.panel2.BackColor = System.Drawing.Color.PowderBlue;
             this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel2.Controls.Add(this.rdb_sqr);
+            this.panel2.Controls.Add(this.rdb_feqr);
             this.panel2.Controls.Add(this.label6);
             this.panel2.Controls.Add(this.btndescargar);
             this.panel2.Controls.Add(this.label4);
@@ -224,6 +228,41 @@
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(639, 70);
             this.panel2.TabIndex = 5;
+            // 
+            // rdb_sqr
+            // 
+            this.rdb_sqr.AutoSize = true;
+            this.rdb_sqr.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rdb_sqr.Location = new System.Drawing.Point(372, 38);
+            this.rdb_sqr.Name = "rdb_sqr";
+            this.rdb_sqr.Size = new System.Drawing.Size(204, 22);
+            this.rdb_sqr.TabIndex = 8;
+            this.rdb_sqr.TabStop = true;
+            this.rdb_sqr.Text = "Generacion de solo QR";
+            this.rdb_sqr.UseVisualStyleBackColor = true;
+            // 
+            // rdb_feqr
+            // 
+            this.rdb_feqr.AutoSize = true;
+            this.rdb_feqr.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rdb_feqr.Location = new System.Drawing.Point(373, 8);
+            this.rdb_feqr.Name = "rdb_feqr";
+            this.rdb_feqr.Size = new System.Drawing.Size(205, 22);
+            this.rdb_feqr.TabIndex = 7;
+            this.rdb_feqr.TabStop = true;
+            this.rdb_feqr.Text = "Generacion de FE y QR";
+            this.rdb_feqr.UseVisualStyleBackColor = true;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.ForeColor = System.Drawing.Color.Black;
+            this.label6.Location = new System.Drawing.Point(12, 9);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(284, 13);
+            this.label6.TabIndex = 6;
+            this.label6.Text = "Descargar solo en caso de punto de venta Tienda";
             // 
             // btndescargar
             // 
@@ -331,17 +370,6 @@
             this.label5.TabIndex = 4;
             this.label5.Text = "Servicio Service FE (Bata)";
             // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.ForeColor = System.Drawing.Color.Black;
-            this.label6.Location = new System.Drawing.Point(12, 9);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(284, 13);
-            this.label6.TabIndex = 6;
-            this.label6.Text = "Descargar solo en caso de punto de venta Tienda";
-            // 
             // Config_Service
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -402,5 +430,7 @@
         private System.Windows.Forms.Button btn_install;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.RadioButton rdb_sqr;
+        private System.Windows.Forms.RadioButton rdb_feqr;
     }
 }

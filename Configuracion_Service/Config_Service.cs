@@ -30,6 +30,7 @@ namespace Configuracion_Service
         {
             limpiar_object();
             verifica_install_epos();
+            get_config_qr();
             //rdb_epos.Checked = true;
             //rdb_ec.Checked = true;
         }
@@ -239,7 +240,20 @@ namespace Configuracion_Service
             Cursor.Current = Cursors.WaitCursor;
             try
             {
-               
+                /*GENERACION DE CODIGO QR Y FE=1 Y SOLO QR=2*/
+                string qr = (rdb_feqr.Checked) ? "1" : "2";
+                update_config_qr();
+
+                if (qr=="2")
+                {
+                    desactivando_servicio_win();
+                    Cursor.Current = Cursors.Default;
+                    MessageBox.Show("El servicio se activo correctamente", "Aviso del sistema (Bata- Peru)", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    activando_servicio_win();
+                    this.Close();
+                }
+
+
                 if (rdb_wsdl.Checked)
                 {
                     activando_wsld();
@@ -280,6 +294,45 @@ namespace Configuracion_Service
 
             }
         }
+        private void get_config_qr()
+        {
+            try
+            {
+                System.Configuration.Configuration wConfig = System.Configuration.ConfigurationManager.OpenMappedExeConfiguration(new System.Configuration.ExeConfigurationFileMap { ExeConfigFilename = @"D:\INTERFA\FEPERU\bata_proceso\ServiceWin_FE.exe.config" }, System.Configuration.ConfigurationUserLevel.None);
+
+                string cod_qr = wConfig.AppSettings.Settings["gen_qr"].Value;
+                /*GENERACION DE CODIGO QR Y FE=1 Y SOLO QR=2*/
+                if (cod_qr=="1")
+                {
+                    rdb_feqr.Checked = true;
+                }
+                if (cod_qr == "2")
+                {
+                    rdb_sqr.Checked = true;
+                }
+            }
+            catch
+            {
+
+            }
+        }
+        private void update_config_qr()
+        {
+            try
+            {
+                /*GENERACION DE CODIGO QR Y FE=1 Y SOLO QR=2*/
+                string qr = (rdb_feqr.Checked) ? "1" : "2";
+
+                System.Configuration.Configuration wConfig = System.Configuration.ConfigurationManager.OpenMappedExeConfiguration(new System.Configuration.ExeConfigurationFileMap { ExeConfigFilename = @"D:\INTERFA\FEPERU\bata_proceso\ServiceWin_FE.exe.config" }, System.Configuration.ConfigurationUserLevel.None);
+                wConfig.AppSettings.Settings["gen_qr"].Value = qr;               
+                wConfig.Save(ConfigurationSaveMode.Modified);
+            }
+            catch
+            {
+
+            }
+        }
+
         /// <summary>
         /// configuracion del epos desde codigo
         /// </summary>

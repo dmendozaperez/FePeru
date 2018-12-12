@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Carvajal.FEPE.PreSC.Core;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.IO;
@@ -7,6 +8,8 @@ using System.Net.Sockets;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Xml.Linq;
+using System.Drawing;
+using System.ServiceModel.Configuration;
 
 namespace CapaModulo.Bll
 {
@@ -44,6 +47,13 @@ namespace CapaModulo.Bll
            
             try
             {
+
+                System.Configuration.Configuration wConfig = System.Configuration.ConfigurationManager.OpenMappedExeConfiguration(new System.Configuration.ExeConfigurationFileMap { ExeConfigFilename = @"D:\INTERFA\FEPERU\bata_proceso\ServiceWin_FE.exe.config" }, System.Configuration.ConfigurationUserLevel.None);
+
+                string cod_qr = wConfig.AppSettings.Settings["gen_qr"].Value;
+                /*GENERACION DE CODIGO QR Y FE=1 Y SOLO QR=2*/
+                /*en este caso 2 no se procesa el codigo hash*/
+                if (cod_qr == "2") return;
 
                 if (!Directory.Exists(@_ruta_in_boleta))
                 {
@@ -370,8 +380,7 @@ namespace CapaModulo.Bll
             _error = _valida_error;
             ruta_archivo_externo = _archivo;        
             return _codigo_hash_return;
-        }
-        
+        }        
         private static string formato_e_pos(string _str,string tdoc,ref string id_tipodoc)
         {
             string str_new_format = "";
@@ -411,7 +420,294 @@ namespace CapaModulo.Bll
             }
             return str_new_format;
         }
-        
+        #region<generacion e impresion de Codigo QR>
+        public static void ejecuta_impresion_qr(ref string _error)
+        {           
+            string _ruta_in_boleta_qr = "D:\\INTERFA\\FEPERU\\IN\\Boletas\\QR";
+            string _ruta_in_factura_qr = "D:\\INTERFA\\FEPERU\\IN\\Facturas\\QR";
+            string _ruta_in_credito_qr = "D:\\INTERFA\\FEPERU\\IN\\creditos\\QR";
+            string _ruta_in_debito_qr = "D:\\INTERFA\\FEPERU\\IN\\debitos\\QR";
+            string _carpeta_in = "";
+            try
+            {
+                if (!Directory.Exists(@_ruta_in_boleta_qr))
+                {
+                    Directory.CreateDirectory(@_ruta_in_boleta_qr);
+                }
+                if (!Directory.Exists(@_ruta_in_factura_qr))
+                {
+                    Directory.CreateDirectory(@_ruta_in_factura_qr);
+                }
+                if (!Directory.Exists(@_ruta_in_credito_qr))
+                {
+                    Directory.CreateDirectory(@_ruta_in_credito_qr);
+                }
+                if (!Directory.Exists(@_ruta_in_debito_qr))
+                {
+                    Directory.CreateDirectory(@_ruta_in_debito_qr);
+                }
 
+                string[] _rutas_in = { _ruta_in_boleta_qr, _ruta_in_factura_qr, _ruta_in_credito_qr, _ruta_in_debito_qr };
+
+                //***********************************
+                for (Int32 i = 0; i < _rutas_in.Length; ++i)
+                {
+                    string _tipo_doc = "";
+
+                    switch (i)
+                    {
+                        case 0:
+                            _tipo_doc = "BO";
+                            break;
+                        case 1:
+                            _tipo_doc = "FA";
+                            break;
+                        case 2:
+                            _tipo_doc = "NC";
+                            break;
+                        case 3:
+                            _tipo_doc = "ND";
+                            break;
+
+                    }
+
+                    _carpeta_in = _rutas_in[i].ToString();
+                    string[] _archivos_txt = Directory.GetFiles(@_carpeta_in, "*.txt");
+
+                    if (_archivos_txt.Length > 0)
+                    {
+                        for (Int32 a = 0; a < _archivos_txt.Length; ++a)
+                        {
+
+                            string folder = _rutas_in[i].ToString(); string file = _archivos_txt[a].ToString();
+
+                            _error = genimpr(folder, file);
+
+                            //_error = "erroreds";
+
+                            if (_error.Length == 0)
+                            {
+                                if (File.Exists(file))
+                                {
+                                    File.Delete(file);
+                                }
+                            }
+                            else
+                            {
+
+                                string error_qr = folder + "\\error";
+
+                                if (!Directory.Exists(error_qr))
+                                {
+                                    Directory.CreateDirectory(@error_qr);
+                                }
+
+                                string _nombrearchivo_qr = Path.GetFileNameWithoutExtension(@file);
+                                string ruta_archivo_error = @error_qr + "//" + _nombrearchivo_qr + ".txt";
+
+                                TextWriter tw = new StreamWriter(@ruta_archivo_error, true);
+                                tw.WriteLine("1," + _error);
+                                tw.Flush();
+                                tw.Close();
+                                tw.Dispose();
+                            }
+                            //}
+                            //else
+                            //{
+                            //    TextWriter tw = new StreamWriter(@ruta_archivo_hash, true);
+                            //    tw.WriteLine("1," + _error);
+                            //    tw.Flush();
+                            //    tw.Close();
+                            //    tw.Dispose();
+
+                            //}
+
+
+                        }
+
+                    }
+                }
+
+
+            }
+            catch (Exception exc)
+            {
+
+                _error = exc.Message;
+            }
+        }
+        private static string impresora_tda = "Ticket";
+        private static byte[] generaQR(string str)
+        {
+            byte[] QR = null;
+            try
+            {
+                GeneratorCdp genqr = new GeneratorCdp();
+
+                QR = genqr.GetImageQrCodeFromString(str);
+
+            }
+            catch
+            {
+                QR = null;
+            }
+            return QR;
+        }
+        private static Image byteArrayToImage(byte[] bytesArr)
+        {
+            MemoryStream memstr = new MemoryStream(bytesArr);
+            Image img = Image.FromStream(memstr);
+            return img;
+        }
+        private static string[] caracteres =
+      {
+        "§","°",
+        " ","á",
+        "‚","é",
+        "¡","í",
+        "¢","ó",
+        "£","ú",
+        "µ","Á",
+        " ","É",
+        "Ö","Í",
+        "à","Ó",
+        "é","Ú",
+        "¥","Ñ",
+        "¤","ñ",
+    };
+        private static string ReemplazarCaracteresEspeciales(string origen)
+        {
+            string destino = "";
+            List<string> listCaracteres = new List<string>();
+            for (int i = 0; i < origen.Length; i++)
+            {
+                listCaracteres.Add(origen[i].ToString());
+            }
+
+            for (int i = 0; i < listCaracteres.Count; i++)
+            {
+                for (int j = 0; j < caracteres.Length; j = j + 2)
+                {
+                    if (listCaracteres[i] == caracteres[j])
+                    {
+                        listCaracteres[i] = listCaracteres[i].Replace(listCaracteres[i], caracteres[j + 1]);
+                        j = caracteres.Length + 1;
+                    }
+                }
+            }
+
+            for (int i = 0; i < listCaracteres.Count; i++)
+            {
+                destino = destino + listCaracteres[i];
+            }
+
+            return destino;
+        }
+        private static void abrircajon()
+        {
+            try
+            {
+                RawPrinterHelper.SendStringToPrinter(impresora_tda, "\x1B" + "p" + "\x00" + "\x0F" + "\x96");
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+        }
+        private static string genimpr(string folder, string file)
+        {
+            string _error = "";
+            try
+            {
+                Int32 n_impre = 0;
+                Boolean tkregalo = false;
+                Ticket tk = new Ticket();
+
+                StreamReader sr = new StreamReader(@file, Encoding.Default);
+                string _formato_doc = sr.ReadToEnd();
+                sr.Close();
+
+                /*verificar la cantidad de str array*/
+
+                string[] str = Regex.Split(_formato_doc, "<td>");
+                Byte[] qr = null;
+                Image im = null;
+                Bitmap bmp;
+                if (str.Length > 1)
+                {
+                    string cadenaQR = str[1].ToString().Trim();
+                    qr = generaQR(cadenaQR);
+                    im = byteArrayToImage(qr);
+                    bmp = new Bitmap(im, new Size(120, 120));                 
+                    tk.HeaderImage = bmp;
+
+                    impresora_tda = str[3].Trim();
+
+                    foreach (string linea_array in str)
+                    {
+                        string cad = "";
+                        /* string cad = ""*/                        
+                        switch (n_impre)
+                        {
+                            /*si es varlor 0 entonces imprime el contenido*/
+                            case 0:                                       
+                            String[] str_linea= Regex.Split(str[0].ToString(), "\r");
+                            foreach (string item_str in str_linea)
+                            {
+                                string cadena = item_str.PadLeft(42, ' ');
+                                cadena= item_str.PadRight(42, ' ');
+                                tk.AddHeaderLine(cadena);
+                            }
+                                tk.PrintTicket(impresora_tda);
+                                break;
+                            /*si es que se abre gaveta*/
+                            case 2:
+                                cad = ReemplazarCaracteresEspeciales(linea_array.Trim());
+
+                                if (cad == "1")
+                                {
+                                    abrircajon();
+                                }
+
+                                break;
+                            /*ticket de regalo*/
+                            case 4:
+                                tk = new Ticket();
+                                str_linea = Regex.Split(str[4].ToString(), "\r");
+                                Boolean tk_regalo = false;
+                                foreach (string item_str in str_linea)
+                                {
+                                    string _str = item_str;
+                                    _str = _str.Replace("\u001a", "");
+                                    if (_str.TrimStart().TrimEnd().Trim().Length>0)
+                                    { 
+                                        string cadena = item_str.PadLeft(42, ' ');
+                                        cadena = item_str.PadRight(42, ' ');
+                                        tk.AddHeaderLine(cadena);
+                                        tk_regalo = true;
+                                    }
+                                }
+                                if (tk_regalo)
+                                    tk.PrintTicket(impresora_tda);
+                                break;
+                        }
+                        n_impre += 1;
+                    }                  
+                    
+
+                }              
+
+
+            }
+            catch (Exception exc)
+            {
+
+                _error = exc.Message;
+            }
+            return _error;
+        }
+        #endregion
     }
 }
