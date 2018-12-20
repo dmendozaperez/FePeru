@@ -10,6 +10,7 @@ using System.Text.RegularExpressions;
 using System.Xml.Linq;
 using System.Drawing;
 using System.ServiceModel.Configuration;
+using System.ServiceProcess;
 
 namespace CapaModulo.Bll
 {
@@ -709,5 +710,208 @@ namespace CapaModulo.Bll
             return _error;
         }
         #endregion
+
+        #region<AUTENTICATION DE EPOS>
+        private string ruc_global = "";
+        private string tda_global = "";
+        private void _espera_ejecuta(Int32 _segundos)
+        {
+            try
+            {
+                _segundos = _segundos * 1000;
+                System.Threading.Thread.Sleep(_segundos);
+            }
+            catch
+            {
+
+            }
+        }
+        public void autenticando_epos_inicial(ref String error,ref Boolean error_activando)
+        {
+            try
+            {
+
+               
+
+                Int32 contar_error_epos = 0;
+                //Boolean error_activando = false;
+                autenticando_epos(ref error_activando, ref contar_error_epos,ref error);
+                if (contar_error_epos == 1)
+                {
+                    _espera_ejecuta(10);
+                    autenticando_epos(ref error_activando, ref contar_error_epos,ref error);
+                }
+            }
+            catch(Exception exc) 
+            {
+                error = exc.Message;
+            }
+        }
+
+        public Boolean verifica_servicio_epos()
+        {
+            Boolean valida = false;
+            try
+            {
+                ServiceController[] service;
+                service = (ServiceController[])ServiceController.GetServices();
+                for (Int32 s = 0; s < service.Length; ++s)
+                {
+                    string nameservicio = service[s].ServiceName;
+                    if (nameservicio == "PPLJavaPOSPeru")
+                    {
+                        valida = true;
+                        break;
+                    }
+                }
+            }
+            catch
+            {
+                valida = false;
+            }
+            return valida;
+        }
+        public void verifica_install_epos()
+        {
+            Empresas_Lista emp = null;
+            try
+            {
+                emp = new Empresas_Lista();
+                var emp_fa = emp.Empresas_Bata();
+
+                /*si el servicio esta instalado entonces verificamos el config de PAPERLESS*/
+                if (verifica_servicio_epos())
+                {
+                    /*en este caso como tiene el servicio desactivamos la opcion wsdl*/
+                 
+                    string _ruta_file_config_paperless = @"C:\Paperless\e-pos\configuracion\0.config";
+                    /*si existe el archivo entonces leemos su config*/
+                    if (File.Exists(_ruta_file_config_paperless))
+                    {
+                        StreamReader sr = new StreamReader(@_ruta_file_config_paperless, Encoding.Default);
+                        string _formato_config = sr.ReadToEnd();
+                        sr.Close();
+                        _formato_config = _formato_config.Replace('\n', ' ').Trim().TrimEnd();
+                        string[] split = _formato_config.Split('\r');
+
+                        if (split.Length > 0)
+                        {
+                            string ruc_config = split[2].ToString();
+                            string tienda_config = split[3].ToString();
+
+                            Int32 index_ruc = ruc_config.IndexOf('=') + 1;
+                            ruc_config = ruc_config.Substring(index_ruc, ruc_config.Length - index_ruc).Trim().TrimEnd();
+
+                            Int32 index_tienda = tienda_config.IndexOf('=') + 1;
+                            tienda_config = tienda_config.Substring(index_tienda, tienda_config.Length - index_tienda).Trim().TrimEnd();
+                            
+
+                            tda_global = tienda_config;
+
+                            /*verificar que la empresa exista*/
+                            var str_existe = emp_fa.Where(b => b.ruc == ruc_config).ToList();
+
+                            if (str_existe.Count() > 0)                                                           
+                                ruc_global = str_existe[0].ruc;                               
+                            
+                            
+
+                        }
+                    }
+
+                }                
+                
+            }
+            catch
+            {
+
+            }
+        }
+        private string formato_epos_autentication()
+        {
+            string str = "";
+            try
+            {
+                str = "@**@1\t0\t" + ruc_global + "\t1\t" + tda_global + "*@@*";
+            }
+            catch
+            {
+
+            }
+            return str;
+        }
+        private void autenticando_epos(ref Boolean error_activando, ref Int32 contar_error_epos,ref  string error)
+        {
+            TcpClient clientSocket = null;
+            string socket_host = "localhost";
+            Int32 socket_puerto = 5500;
+            try
+            {
+                clientSocket = new TcpClient();
+                clientSocket.Connect(socket_host, socket_puerto);
+
+                /*formatear formato de documento*/
+                string _formato_doc = formato_epos_autentication();
+                /**/
+
+                byte[] outstream = Encoding.ASCII.GetBytes(_formato_doc);
+
+                NetworkStream serverstream = clientSocket.GetStream();
+                serverstream.Write(outstream, 0, outstream.Length);
+                serverstream.Flush();
+
+                byte[] instream = new byte[1024 * 1000];
+                serverstream.Read(instream, 0, (int)clientSocket.ReceiveBufferSize);
+
+                string return_data = Encoding.ASCII.GetString(instream);
+                string[] split = return_data.Trim().Replace('\u0002', ' ').Replace('\0', ' ').Replace('\u0003', ' ').Trim().TrimEnd().Split('\t');
+
+                //error = split[0].ToString() + "==>" + split[1].ToString();
+
+                if (split[0] != "0")
+                {
+                    //MessageBox.Show(split[1].ToString(), "Aviso del sistema (Bata- Peru)", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    error_activando = true;
+                }
+            }
+            catch (Exception exc)
+            {
+                
+                contar_error_epos += 1;
+
+                if (contar_error_epos == 2)
+                {
+                    error_activando = true;
+                    //MessageBox.Show(exc.Message, "Aviso del sistema (Bata- Peru)", MessageBoxButtons.OK, MessageBoxIcon.Error); ;
+                }
+                throw;
+            }
+        }
+        #endregion
+    }
+    public class Empresas_Lista
+    {
+        public IEnumerable<Empresas_FE> Empresas_Bata()
+        {
+            var lista = new List<Empresas_FE>();
+            lista.Add(new Empresas_FE
+            {
+                nombre = "EMPRESAS COMERCIALES S.A. Y/O EMCOMER S.A.",
+                //ruc = "201013232951872",
+                ruc = "20101951872",
+            });
+            lista.Add(new Empresas_FE
+            {
+                nombre = "TROPICALZA S.A.C.",
+                //ruc = "20408993230816",
+                ruc = "20408990816",
+            });
+            return lista.ToList();
+        }
+    }
+    public class Empresas_FE
+    {
+        public string nombre { get; set; }
+        public string ruc { get; set; }
     }
 }
